@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>11f5bd10-9ffa-4541-9b42-ae0e9e06c201</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Magda___Customer_Service_ChatBOT.py</StartupFile>
+    <StartupFile>bot.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -21,7 +21,10 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Magda___Customer_Service_ChatBOT.py" />
+    <Compile Include="bot.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="navigation.json" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

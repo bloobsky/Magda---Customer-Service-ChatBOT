@@ -1,0 +1,67 @@
+// Basic Navigation Data
+
+{
+  "intents": [
+    {
+      "tag": "bot_greeting",
+      "patterns": [ "Hi there", "How are you", "Is anyone there?", "Hey", "Hola", "Hello", "Good day", "Good Morning", "Goof Afternoon", "Good Evening"],
+      "responses": [ "Hi, How can I help you today ?", "Good Day ! What I can do yo help you today ?", "Hi there, how can I help?", "Hello, how can I help ?" ],
+      "context": [ "" ]
+    },
+    {
+      "tag": "bot_goodbye",
+      "patterns": [ "Bye", "See you later", "Goodbye", "Nice chatting to you, bye", "Till next time", "That's everything" ],
+      "responses": [ "I'am glad I could have helped!", "See you!", "Goodbye", "Bye",  "Have a nice day", "Bye!" ],
+      "context": [ "" ]
+    },
+    {
+      "tag": "bot_thanks",
+      "patterns": [ "Thanks", "Thank you", "That's helpful", "Awesome, thanks", "Thanks for helping me" ],
+      "responses": [ "Happy to help!", "All the best !", "My pleasure", "Pleasure is mine", "Anytime!" ],
+      "context": [ "" ]
+    },
+    {
+      "tag": "bot_noanswer",
+      "patterns": [],
+      "responses": [ "Sorry, could you repeat that ?", "Please give me more information about it", "Not sure how to handle that!", "Not sure I understand", "Could you rephrase your question, please ?", "Could you ask a different question?" ],
+      "context": [ "" ]
+    },
+    {
+      "tag": "bot_options",
+      "patterns": [ "How you could help me?", "What you can do?", "What help you provide?", "How you can be helpful?", "What support is offered", "I need some help" ],
+      "responses": [ "I can help you with all the information queries", " I can help you with the order and delivery status", "I can offer to reset the password ?" ],
+      "context": [ "" ]
+    },
+    {
+      "tag": "order_status",
+      "patterns": [ "What orders have I placed", "Can you check my orders ?", "What is my order status ?", "Order", "Orders" ],
+      "responses": [ "" ],
+      "context": [ "check_order_status" ]
+    },
+    {
+      "tag": "password_reset",
+      "patterns": [ "I do not remember my password", "I forgot my password", "Reset my password"],
+      "responses": [ "I will provide you with a link that will allow to reset your password" ],
+      "context": [ "reset_password" ]
+    },
+    {
+      "tag": "parcel_tracking",
+      "patterns": ["Can you help me tracking my delivery ?", "I'm still have not received my parcel", "Track my delivery", "Track my parcel"],
+      "responses": [ "Let me give you all the information about your parcels" ],
+      "context": [ "tracking_parcels" ]
+    },
+    {
+      "tag": "bot_info",
+      "patterns": [ "Find me a contact agents", "Give me some information about a company"],
+      "responses": [ "Our company is specialising in delivering IT solutions as a service. Mostly we specialize in ChatBOTs and this one is an example of - Magda. " ],
+      "context": [ "" ]
+    },
+    {
+      "tag": "bot_contact",
+      "patterns": ["How I can contact you ?", "How I can reach you ?"],
+      "responses": [ "Our contact details are: \nE-mail: info@chatbots.ie\n or alternatively you can call us at 061-314014" ],
+      "context": [ "" ]
+    }
+  
+  ]
+}
