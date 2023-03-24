@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>11f5bd10-9ffa-4541-9b42-ae0e9e06c201</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>bot.py</StartupFile>
+    <StartupFile>app.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -21,10 +21,18 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="bot.py" />
+    <Compile Include="app.py" />
+    <Compile Include="chatbot.py" />
+    <Compile Include="trainer.py" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="navigation.json" />
+    <Content Include="static\style.css" />
+    <Content Include="templates\index.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="static\" />
+    <Folder Include="templates\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
