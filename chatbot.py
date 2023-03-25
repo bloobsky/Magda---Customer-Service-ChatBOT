@@ -14,7 +14,7 @@ class ChatBot:
         self.words = []
         self.classes = []
         self.documents = []
-        self.ignore_words = ['?', '!', '.', ',', ':']
+        self.ignore_words = ['?', '!', '.', ',', ':', 'and', 'a', 'the']
         self.lemmatizer = WordNetLemmatizer()
 
     def load_data(self, filename):
@@ -73,5 +73,5 @@ if __name__ == "__main__":
     chatbot.load_data('navigation.json')
     chatbot.create_training_data()
     chatbot.create_model()
-    chatbot.train_model(2000, 5)
+    chatbot.train_model(500, 5)
     chatbot.save_model('chatbot_model.h5')

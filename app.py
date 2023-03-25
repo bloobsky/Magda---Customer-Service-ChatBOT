@@ -1,14 +1,16 @@
 import nltk
-nltk.download('popular')
-from nltk.stem import WordNetLemmatizer
-lemmatizer = WordNetLemmatizer()
 import pickle
 import numpy as np
-
-from keras.models import load_model
-model = load_model('model.h5')
 import json
 import random
+from keras.models import load_model
+from nltk.stem import WordNetLemmatizer
+
+
+
+lemmatizer = WordNetLemmatizer()
+nltk.download('popular')
+model = load_model('chatbot_model.h5')
 intents = json.loads(open('navigation.json').read())
 words = pickle.load(open('texts.pkl','rb'))
 classes = pickle.load(open('labels.pkl','rb'))
@@ -67,6 +69,18 @@ def chatbot_response(msg):
     ints = predict_class(msg, model)
     res = getResponse(ints, intents)
     return res
+
+
+def check_context(query_type):
+    if query_type == "reset_password":
+        print("reset_password")
+    elif query_type == "check_order_status":
+        print("check_order_status")
+    elif query_type == "tracking_parcels":
+        print("tracking_parcels")
+    
+    return True
+
 
 
 from flask import Flask, render_template, request
