@@ -74,4 +74,4 @@ if __name__ == "__main__":
     chatbot.create_training_data()
     chatbot.create_model()
     chatbot.train_model(500, 5)
-    chatbot.save_model('chatbot_model.h5')
+    chatbot.save_model('model.h5')

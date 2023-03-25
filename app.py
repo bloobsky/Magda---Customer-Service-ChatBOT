@@ -6,10 +6,11 @@ import random
 from keras.models import load_model
 from nltk.stem import WordNetLemmatizer
 
-
+#Run once !
+#nltk.download('popular')
 
 lemmatizer = WordNetLemmatizer()
-nltk.download('popular')
+
 model = load_model('chatbot_model.h5')
 intents = json.loads(open('navigation.json').read())
 words = pickle.load(open('texts.pkl','rb'))
@@ -57,10 +58,7 @@ def getResponse(ints, intents_json):
     for i in list_of_intents:
         if(i['tag']== tag):
             result = random.choice(i['responses'])
-            print(i['responses'])
-            if(i['context']):
-                print(i['context'])
-            print(result)
+            check_context(i['context'])
             break 
     return result
 
@@ -72,13 +70,14 @@ def chatbot_response(msg):
 
 
 def check_context(query_type):
+    query_type = query_type[0] # extracting just data
     if query_type == "reset_password":
-        print("reset_password")
+        pass
     elif query_type == "check_order_status":
-        print("check_order_status")
+        pass
     elif query_type == "tracking_parcels":
-        print("tracking_parcels")
-    
+        pass
+    print(query_type)
     return True
 
 
