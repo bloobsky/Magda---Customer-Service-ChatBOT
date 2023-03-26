@@ -58,27 +58,43 @@ def get_response(ints, intents_json):
     for i in list_of_intents:
         if(i['tag']== tag):
             result = random.choice(i['responses'])
-            check_context(i['context'])
-            break 
+            break
     return result
 
+def get_response_advanced(ints, intents_json):
+    tag = ints[0]['intent']
+    list_of_intents = intents_json['intents']
+    for i in list_of_intents:
+        if(i['tag']== tag):
+            result = check_context(i['context'])
+            print(result)
+            break
+    return result
+
+def reset_password():
+    return "https://127.0.0.1:5000/pass_reset"
 
 def chatbot_response(msg):
     ints = predict_class(msg, model)
     res = get_response(ints, intents)
-    return res
+    res2 = get_response_advanced(ints, intents)
+    if res2:
+        return res +'\n' + res2
+    else:
+        return res
+
 
 
 def check_context(query_type):
     query_type = query_type[0] # extracting just data
     if query_type == "reset_password":
-        pass
+        return reset_password()
     elif query_type == "check_order_status":
-        pass
+        return 
     elif query_type == "tracking_parcels":
-        pass
-    print(query_type)
-    return True
+        return 
+    return False
+
 
 
 
