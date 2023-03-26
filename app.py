@@ -3,6 +3,7 @@ import pickle
 import numpy as np
 import json
 import random
+from operations import DatabaseOperator
 from keras.models import load_model
 from nltk.stem import WordNetLemmatizer
 
@@ -74,6 +75,14 @@ def get_response_advanced(ints, intents_json):
 def reset_password():
     return "https://127.0.0.1:5000/pass_reset"
 
+def check_order_status():
+    result = db_operator.get()
+    return f"Your order number is {result['OrderNumber']} and is {result['OrderStatus']}. For more information type parcels do accquire additional help."
+
+def tracking_parcels():
+    result = db_operator.get()
+    return f"Your parcel is {result['Delivery']}, and carrier is {result['Carrier']}, and tracking number is {result['TrackingNumber']}."
+
 def chatbot_response(msg):
     ints = predict_class(msg, model)
     res = get_response(ints, intents)
@@ -90,9 +99,9 @@ def check_context(query_type):
     if query_type == "reset_password":
         return reset_password()
     elif query_type == "check_order_status":
-        return 
+        return check_order_status()
     elif query_type == "tracking_parcels":
-        return 
+        return tracking_parcels()
     return False
 
 
@@ -100,6 +109,7 @@ def check_context(query_type):
 
 from flask import Flask, render_template, request
 
+db_operator = DatabaseOperator()
 app = Flask(__name__)
 app.static_folder = 'static'
 
