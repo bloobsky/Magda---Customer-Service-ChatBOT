@@ -20,7 +20,7 @@ class ChatBot:
     def load_data(self, filename):
         data_file = open(filename).read()
         intents = json.loads(data_file)
-        for intent in intents['intents']:
+        for intent in intents['data']:
             for pattern in intent['patterns']:
                 #Tokenize word (Splitting sentences into individual words)
                 to_word = nltk.word_tokenize(pattern)
@@ -41,7 +41,7 @@ class ChatBot:
         pickle.dump(self.classes, open('labels.pkl', 'wb'))
 
     def create_training_data(self):
-        # It’s a collection of words to represent a sentence with word count and mostly disregarding the order in which they appear
+        # It's a collection of words to represent a sentence with word count and mostly disregarding the order in which they appear
         training = []
         output = [0] * len(self.classes)
         for doc in self.documents:
@@ -90,5 +90,5 @@ if __name__ == "__main__":
     chatbot.load_data('navigation.json')
     chatbot.create_training_data()
     chatbot.create_model()
-    chatbot.train_model(500, 5)
-    chatbot.save_model('model.h5')
+    chatbot.train_model(200, 5)
+    chatbot.save_model('chatbot_model.h5')

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Intents Manager</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Intents Manager</h1>
+        <hr>
+
+        <h2>Add Intent</h2>
+        <form action="/add" method="POST">
+            <div class="form-group">
+                <label for="tag">Tag:</label>
+                <input type="text" name="tag" id="tag" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="patterns">Patterns:</label>
+                <input type="text" name="patterns" id="patterns" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="responses">Responses:</label>
+                <input type="text" name="responses" id="responses" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="context">Context:</label>
+                <input type="text" name="context" id="context" class="form-control" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        <hr>
+
+        <h2>Update Intent</h2>
+        <form action="/update" method="POST">
+            <div class="form-group">
+                <label for="id">ID:</label>
+                <input type="number" name="id" id="id" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="patterns">Patterns:</label>
+                <input type="text" name="patterns" id="patterns" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="responses">Responses:</label>
+                <input type="text" name="responses" id="responses" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="context">Context:</label>
+                <input type="text" name="context" id="context" class="form-control" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        <hr>
+
+        <h2>Delete Intent</h2>
+        <form action="/delete" method="POST">
+            <div class="form-group">
+                <label for="id">ID:</label>
+                <input type="number" name="id" id="id" class="form-control" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        <hr>
+
+        <h2>List Intents</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tag</th>
+                    <th>Patterns</th>
+                    <th>Responses</th>
+                    <th>Context</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for intent in intents %}
+                <tr>
+                    <td>{{ intent.id }}</td>
+                    <td>{{ intent.tag }}</td>
+                    <td>{{ intent.patterns }}</td>
+                    <td>{{ intent.responses }}</td>
+                    <td>{{ intent.context }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

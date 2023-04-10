@@ -3,9 +3,11 @@ import pickle
 import numpy as np
 import json
 import random
+from pysondb import db
 from operations import DatabaseOperator
 from keras.models import load_model
 from nltk.stem import WordNetLemmatizer
+from flask import Flask, render_template, request, jsonify, redirect, url_for
 
 #Run once !
 #nltk.download('popular')
@@ -37,11 +39,12 @@ def bow(sentence, words, show_details=True):
                 # assign 1 if current word is in the vocabulary position
                 bag[i] = 1
                 if show_details:
-                    print ("found in bag: %s" % w)
+                    #Control only
+                    print ("found in bag: %s" % w) 
     return(np.array(bag))
 
 def predict_class(sentence, model):
-    # filter out predictions below a threshold
+    #Dilter out predictions below with error_threshold
     p = bow(sentence, words,show_details=False)
     res = model.predict(np.array([p]))[0]
     ERROR_THRESHOLD = 0.25
@@ -55,7 +58,7 @@ def predict_class(sentence, model):
 
 def get_response(ints, intents_json):
     tag = ints[0]['intent']
-    list_of_intents = intents_json['intents']
+    list_of_intents = intents_json['data']
     for i in list_of_intents:
         if(i['tag']== tag):
             result = random.choice(i['responses'])
@@ -64,7 +67,7 @@ def get_response(ints, intents_json):
 
 def get_response_advanced(ints, intents_json):
     tag = ints[0]['intent']
-    list_of_intents = intents_json['intents']
+    list_of_intents = intents_json['data']
     for i in list_of_intents:
         if(i['tag']== tag):
             result = check_context(i['context'])
@@ -107,9 +110,10 @@ def check_context(query_type):
 
 
 
-from flask import Flask, render_template, request
+#Main Body
 
-db_operator = DatabaseOperator()
+db_operator = DatabaseOperator(user="user")
+database = db.getDb('navigation.json')
 app = Flask(__name__)
 app.static_folder = 'static'
 
@@ -122,6 +126,106 @@ def get_bot_response():
     msg = request.args.get('msg')
     return chatbot_response(msg)
 
+# Add intent page
+@app.route('/add', methods=['GET', 'POST'])
+def add():
+    if request.method == 'POST':
+        tag = request.form['tag']
+        patterns = request.form['patterns'].split(',')
+        responses = request.form['responses'].split(',')
+        context = request.form['context'].split(',')
+        intent = {
+            'tag': tag,
+            'patterns': patterns,
+            'responses': responses,
+            'context': context
+        }
+        database.add(intent)
+        return redirect(url_for('home'))
+    else:
+        return render_template('add.html')
+
+# Update intent page
+@app.route('/update', methods=['GET', 'POST'])
+def update():
+    if request.method == 'POST':
+        db_id = request.form['id']
+        patterns = request.form['patterns'].split(',')
+        responses = request.form['responses'].split(',')
+        context = request.form['context'].split(',')
+        intent = {
+            'patterns': patterns,
+            'responses': responses,
+            'context': context
+        }
+
+        database.updateById(db_id, intent)
+        return redirect(url_for('admin'))
+
+
+# Delete intent page
+@app.route('/delete/', methods=['GET', 'POST'])
+def delete():
+    if request.method == 'POST':
+        db_id = request.form['id']
+        database.deleteById(db_id)
+        return redirect(url_for('admin'))
+
+
+
+
+
+
+# List View
+@app.route('/admin/')
+def admin():
+    return render_template("admin.html", intents=database.getAll())
+
+# List all intents API
+@app.route('/api/intents', methods=['GET'])
+def get_intents():
+    return jsonify(database.getAll())
+
+# Get an intent by id API
+@app.route('/api/intents/<int:id>', methods=['GET'])
+def get_intent(id):
+    intent = database.get(lambda x: x.get('id') == id)
+    if intent is not None:
+        return jsonify(intent)
+    else:
+        return jsonify({'error': 'Intent not found'}), 404
+
+# Create a new intent API
+@app.route('/api/intents', methods=['POST'])
+def create_intent():
+    if not request.json:
+        return jsonify({'error': 'Invalid request body'}), 400
+    intent = request.json
+    database.insert(intent)
+    return jsonify(intent), 201
+
+# Update an existing intent API
+@app.route('/api/intents/<int:id>', methods=['PUT'])
+def update_intent(id):
+    intent = database.get(lambda x: x.get('id') == id)
+    if intent is None:
+        return jsonify({'error': 'Intent not found'}), 404
+    if not request.json:
+        return jsonify({'error': 'Invalid request body'}), 400
+    update_data = request.json
+    intent.update(update_data)
+    database.update(lambda x: x.get('id') == id, intent)
+    return jsonify(intent), 200
+
+# Delete an intent by id API
+@app.route('/api/intents/<int:id>', methods=['DELETE'])
+def delete_intent(id):
+    intent = database.get(lambda x: x.get('id') == id)
+    if intent is None:
+        return jsonify({'error': 'Intent not found'}), 404
+    database.delete(lambda x: x.get('id') == id)
+    return jsonify({'result': True})
 
 if __name__ == "__main__":
+    debug =True 
     app.run()
