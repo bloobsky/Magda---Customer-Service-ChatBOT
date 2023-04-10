@@ -117,10 +117,13 @@ database = db.getDb('navigation.json')
 app = Flask(__name__)
 app.static_folder = 'static'
 
+
+#Home page
 @app.route("/")
 def home():
     return render_template("index.html")
 
+#Get Bot Response from user
 @app.route("/get")
 def get_bot_response():
     msg = request.args.get('msg')
@@ -171,61 +174,15 @@ def delete():
         database.deleteById(db_id)
         return redirect(url_for('admin'))
 
-
-
-
-
-
 # List View
 @app.route('/admin/')
 def admin():
     return render_template("admin.html", intents=database.getAll())
 
-# List all intents API
-@app.route('/api/intents', methods=['GET'])
-def get_intents():
-    return jsonify(database.getAll())
-
-# Get an intent by id API
-@app.route('/api/intents/<int:id>', methods=['GET'])
-def get_intent(id):
-    intent = database.get(lambda x: x.get('id') == id)
-    if intent is not None:
-        return jsonify(intent)
-    else:
-        return jsonify({'error': 'Intent not found'}), 404
-
-# Create a new intent API
-@app.route('/api/intents', methods=['POST'])
-def create_intent():
-    if not request.json:
-        return jsonify({'error': 'Invalid request body'}), 400
-    intent = request.json
-    database.insert(intent)
-    return jsonify(intent), 201
-
-# Update an existing intent API
-@app.route('/api/intents/<int:id>', methods=['PUT'])
-def update_intent(id):
-    intent = database.get(lambda x: x.get('id') == id)
-    if intent is None:
-        return jsonify({'error': 'Intent not found'}), 404
-    if not request.json:
-        return jsonify({'error': 'Invalid request body'}), 400
-    update_data = request.json
-    intent.update(update_data)
-    database.update(lambda x: x.get('id') == id, intent)
-    return jsonify(intent), 200
-
-# Delete an intent by id API
-@app.route('/api/intents/<int:id>', methods=['DELETE'])
-def delete_intent(id):
-    intent = database.get(lambda x: x.get('id') == id)
-    if intent is None:
-        return jsonify({'error': 'Intent not found'}), 404
-    database.delete(lambda x: x.get('id') == id)
-    return jsonify({'result': True})
+# Train page
+@app.route('/train', methods=['GET', 'POST'])
+def train():
+    
 
 if __name__ == "__main__":
-    debug =True 
     app.run()
