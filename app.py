@@ -8,7 +8,7 @@ from pysondb import db
 from operations import DatabaseOperator
 from keras.models import load_model
 from nltk.stem import WordNetLemmatizer
-from flask import Flask, render_template, request, jsonify, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for
 
 #Run once !
 #nltk.download('popular')
