@@ -54,11 +54,11 @@ def predict_class(sentence, model):
     results.sort(key=lambda x: x[1], reverse=True)
     return_list = []
     for r in results:
-        return_list.append({"intent": classes[r[0]], "probability": str(r[1])})
+        return_list.append({"data": classes[r[0]], "probability": str(r[1])})
     return return_list
 
 def get_response(ints, intents_json):
-    tag = ints[0]['intent']
+    tag = ints[0]['data']
     list_of_intents = intents_json['data']
     for i in list_of_intents:
         if(i['tag']== tag):
@@ -67,7 +67,7 @@ def get_response(ints, intents_json):
     return result
 
 def get_response_advanced(ints, intents_json):
-    tag = ints[0]['intent']
+    tag = ints[0]['data']
     list_of_intents = intents_json['data']
     for i in list_of_intents:
         if(i['tag']== tag):
