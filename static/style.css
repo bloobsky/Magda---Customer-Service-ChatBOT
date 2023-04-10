@@ -7,10 +7,6 @@
     --right-msg-bg: #579ffb;
 }
 
-html {
-    box-sizing: border-box;
-}
-
 *,
 *:before,
 *:after {
@@ -19,8 +15,12 @@ html {
     box-sizing: inherit;
 }
 
+html {
+    box-sizing: border-box;
+}
+
 body {
-    display: flex;
+    display: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
@@ -32,10 +32,11 @@ body {
     display: flex;
     flex-flow: column wrap;
     justify-content: space-between;
+
     width: 100%;
     max-width: 867px;
-    margin: 25px 10px;
-    height: calc(100% - 50px);
+    margin: 25px auto;
+    height: calc(100% - 100px);
     border: 2px solid black;
     border-radius: 5px;
     background: var(--msger-bg);
@@ -164,4 +165,100 @@ body {
 .msger-chat {
     background-color: #fcfcfe;
     background-image: url('chatbot_theme.png');
+}
+
+/* Style the navbar */
+#navbar {
+    overflow: hidden;
+    background-color: #333;
+}
+
+    /* Navbar links */
+    #navbar a {
+        float: left;
+        display: block;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px;
+        text-decoration: none;
+    }
+
+/* Page content */
+.content {
+    padding: 16px;
+}
+
+/* The sticky class is added to the navbar with JS when it reaches its scroll position */
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+/* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
+.sticky + .content {
+    padding-top: 60px;
+}
+
+/* style the main container */
+.container {
+    max-width: 867px;
+    margin: 25px auto;
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 25px;
+}
+
+/* style the section headers */
+h1, h2 {
+    margin-bottom: 10px;
+}
+
+/* style the form fields */
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"], input[type="number"] {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+input[type="submit"] {
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+    input[type="submit"]:hover {
+        background-color: #0069d9;
+    }
+
+/* style the table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    font-weight: bold;
+    background-color: #f2f2f2;
 }
