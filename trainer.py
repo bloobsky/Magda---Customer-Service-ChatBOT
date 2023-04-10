@@ -18,7 +18,7 @@ data_file = open('navigation.json').read()
 intents = json.loads(data_file)
 
 
-for intent in intents['intents']:
+for intent in intents['data']:
     for pattern in intent['patterns']:
 
         #Tokenize word (Splitting sentences into individual words)
@@ -57,7 +57,7 @@ training = []
 # Array for our output
 output = [0] * len(classes)
 
-# It’s a collection of words to represent a sentence with word count and mostly disregarding the order in which they appear
+# It's a collection of words to represent a sentence with word count and mostly disregarding the order in which they appear
 for doc in documents:
     bag = []
     #Tokenized words for the pattern

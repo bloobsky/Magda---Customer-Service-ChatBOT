@@ -3,6 +3,7 @@ import pickle
 import numpy as np
 import json
 import random
+import subprocess
 from pysondb import db
 from operations import DatabaseOperator
 from keras.models import load_model
@@ -182,6 +183,18 @@ def admin():
 # Train page
 @app.route('/train', methods=['GET', 'POST'])
 def train():
+    return render_template("train.html")
+
+#Executing the python script for training the bot
+@app.route('/execute')
+def execute():
+    result = subprocess.run(['python', 'trainer.py'], capture_output=True, text=True)
+    
+    # Get the output of the script
+    output = result.stdout
+
+    # Render the template with the output
+    return render_template('output.html', output=output)
     
 
 if __name__ == "__main__":
