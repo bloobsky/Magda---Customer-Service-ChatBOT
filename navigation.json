@@ -185,13 +185,13 @@
       {
          "tag": "bot_test",
          "patterns": [
-            "update1"
+            "UpdateTest002"
          ],
          "responses": [
-            "update2"
+            "UpdateTest004"
          ],
          "context": [
-            "update3"
+            "UpdateTest003"
          ],
          "id": 100921295657942707
       },
@@ -207,6 +207,19 @@
             "TestContext"
          ],
          "id": 426269984178139671
+      },
+      {
+         "tag": "bot_test_4",
+         "patterns": [
+            "bottest4"
+         ],
+         "responses": [
+            "bottest4"
+         ],
+         "context": [
+            "bottest4"
+         ],
+         "id": 333928958502814032
       }
    ]
 }

@@ -2,7 +2,9 @@
 <html>
 <head>
     <title>Intents Manager</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
+
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -23,7 +25,7 @@
             </ul>
         </div>
     </nav>
-    <div class="container">
+    <div class="container background-var" >
         <h1 class="mt-5">Bot Manager</h1>
         <hr>
 
@@ -58,7 +60,11 @@
         <form action="/update" method="POST">
             <div class="form-group">
                 <label for="id">ID:</label>
-                <input type="number" name="id" id="id" class="form-control" required>
+                <select name="id" id="id" class="form-control" required>
+                    {% for intent in intents %}
+                    <option value="{{ intent.id }}">{{ intent.id }}</option>
+                    {% endfor %}
+                </select>
             </div>
 
             <div class="form-group">
@@ -85,10 +91,14 @@
         <form action="/delete" method="POST">
             <div class="form-group">
                 <label for="id">ID:</label>
-                <input type="number" name="id" id="id" class="form-control" required>
+                <select name="id" id="id" class="form-control" required>
+                    {% for intent in intents %}
+                    <option value="{{ intent.id }}">{{ intent.id }}</option>
+                    {% endfor %}
+                </select>
             </div>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Delete</button>
         </form>
 
         <hr>

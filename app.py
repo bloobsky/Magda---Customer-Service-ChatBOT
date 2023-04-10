@@ -145,9 +145,8 @@ def add():
             'context': context
         }
         database.add(intent)
-        return redirect(url_for('home'))
-    else:
-        return render_template('add.html')
+        return redirect(url_for('admin'))
+
 
 # Update intent page
 @app.route('/update', methods=['GET', 'POST'])
