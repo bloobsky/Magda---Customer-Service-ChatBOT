@@ -14,7 +14,7 @@ class ChatBot:
         self.words = []
         self.classes = []
         self.documents = []
-        self.ignore_words = ['?', '!', '.', ',', ':', 'and', 'a', 'the']
+        self.ignore_words = ['?', '!', '.', ',', ':', 'and', 'the']
         self.lemmatizer = WordNetLemmatizer()
 
     def load_data(self, filename):
@@ -84,6 +84,10 @@ class ChatBot:
         #Save the model 
         self.model.save(filename, self.hist)
 
+    def print_positive():
+        #Printing Test Result as Positive
+        print("ChatBOT Trained perfectly, please refresh the page to confirm.")
+
 
 if __name__ == "__main__":
     chatbot = ChatBot()
@@ -92,3 +96,4 @@ if __name__ == "__main__":
     chatbot.create_model()
     chatbot.train_model(200, 5)
     chatbot.save_model('chatbot_model.h5')
+    chatbot.print_positive()

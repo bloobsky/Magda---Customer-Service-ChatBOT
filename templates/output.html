@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Script Output</title>
-</head>
+    <title>Trraining Output</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
+
+    </head>
 <body>
-    <h1>Script Output</h1>
-    <pre>{{ output }}</pre>
+    <h4>Bot Training Finished. Please read below for detailed view.</h4>
+    <pre><code>{{ output }}</code></pre>
+
 </body>
 </html>

@@ -187,7 +187,7 @@ def train():
 #Executing the python script for training the bot
 @app.route('/execute')
 def execute():
-    result = subprocess.run(['python', 'trainer.py'], capture_output=True, text=True)
+    result = subprocess.run(['python', 'chatbot.py'], capture_output=True, text=True)
     
     # Get the output of the script
     output = result.stdout
