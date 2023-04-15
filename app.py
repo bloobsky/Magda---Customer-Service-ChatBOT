@@ -8,7 +8,7 @@ from pysondb import db
 from operations import DatabaseOperator
 from keras.models import load_model
 from nltk.stem import WordNetLemmatizer
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 
 #Run once !
 #nltk.download('popular')
@@ -19,6 +19,8 @@ model = load_model('chatbot_model.h5')
 intents = json.loads(open('navigation.json').read())
 words = pickle.load(open('texts.pkl','rb'))
 classes = pickle.load(open('labels.pkl','rb'))
+
+
 
 def clean_up_sentence(sentence):
     # tokenize the pattern - split words into array
@@ -77,7 +79,7 @@ def get_response_advanced(ints, intents_json):
     return result
 
 def reset_password():
-    return "https://127.0.0.1:5000/pass_reset"
+    return '<a href="/pass_reset">Reset Password</a>'
 
 def check_order_status():
     result = db_operator.get()
@@ -109,20 +111,61 @@ def check_context(query_type):
     return False
 
 
-
-
 #Main Body
+users = {
+    "admin": {
+        "password": "pass123",
+        "role": "Administrator"
+    },
+    "customer": {
+        "password": "pass123",
+        "role": "Customer"
+    }
+}
 
 db_operator = DatabaseOperator(user="user")
 database = db.getDb('navigation.json')
 app = Flask(__name__)
+app.secret_key = "bachelorproject020"
 app.static_folder = 'static'
 
 
 #Home page
 @app.route("/")
 def home():
-    return render_template("index.html")
+    if "username" in session:
+        return render_template("index.html")
+    else:
+        return redirect(url_for("login"))
+
+#Reset password page   
+@app.route("/pass_reset")
+def pass_reset():
+    session.pop("username", None)
+    session.pop("role", None)
+    return render_template("login.html", error="Your password has been reset to 'pass123' ")
+
+#Login page
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+        if username in users and password == users[username]["password"]:
+            session["username"] = username
+            session["role"] = users[username]["role"]
+            return redirect(url_for("home"))
+        else:
+            return render_template("login.html", error="Invalid username or password.")
+    else:
+        return render_template("login.html")
+
+#Logout
+@app.route("/logout")
+def logout():
+    session.pop("username", None)
+    session.pop("role", None)
+    return render_template("login.html", error="You have successfully logged out.")
 
 #Get Bot Response from user
 @app.route("/get")
