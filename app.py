@@ -11,7 +11,7 @@ from nltk.stem import WordNetLemmatizer
 from flask import Flask, render_template, request, redirect, url_for, session
 
 #Run once !
-#nltk.download('popular')
+nltk.download('popular')
 
 lemmatizer = WordNetLemmatizer()
 
