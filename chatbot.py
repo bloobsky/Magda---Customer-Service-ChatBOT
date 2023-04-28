@@ -18,8 +18,9 @@ class ChatBot:
         self.lemmatizer = WordNetLemmatizer()
 
     def load_data(self, filename):
-        data_file = open(filename).read()
-        intents = json.loads(data_file)
+        with open(filename, 'r') as data_file:
+            data = data_file.read()
+        intents = json.loads(data)
         for intent in intents['data']:
             for pattern in intent['patterns']:
                 #Tokenize word (Splitting sentences into individual words)
@@ -37,8 +38,11 @@ class ChatBot:
         self.classes = sorted(list(set(self.classes)))
         
         # Pickle module is responsible for transfering string into a binary code that could be understand by computer
-        pickle.dump(self.words, open('texts.pkl', 'wb'))
-        pickle.dump(self.classes, open('labels.pkl', 'wb'))
+        with open('texts.pkl', 'wb') as f:
+            pickle.dump(self.words, f)
+        with open('labels.pkl', 'wb') as f:
+            pickle.dump(self.classes, f)
+
 
     def create_training_data(self):
         # It's a collection of words to represent a sentence with word count and mostly disregarding the order in which they appear

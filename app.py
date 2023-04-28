@@ -11,7 +11,7 @@ from nltk.stem import WordNetLemmatizer
 from flask import Flask, render_template, request, redirect, url_for, session
 
 #Run once !
-nltk.download('popular')
+#nltk.download('popular')
 
 lemmatizer = WordNetLemmatizer()
 
@@ -223,7 +223,7 @@ def delete():
         return redirect(url_for('admin'))
 
 # List View
-@app.route('/admin/')
+@app.route('/admin')
 def admin():
     return render_template("admin.html", intents=database.getAll())
 

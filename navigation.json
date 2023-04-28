@@ -220,6 +220,19 @@
             "blanke"
          ],
          "id": 197290882300420723
+      },
+      {
+         "tag": "EloMate",
+         "patterns": [
+            "This is Sparta"
+         ],
+         "responses": [
+            "It is"
+         ],
+         "context": [
+            " "
+         ],
+         "id": 212032141322738137
       }
    ]
 }
