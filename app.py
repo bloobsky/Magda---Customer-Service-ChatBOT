@@ -15,11 +15,16 @@ from flask import Flask, render_template, request, redirect, url_for, session
 
 lemmatizer = WordNetLemmatizer()
 
-model = load_model('chatbot_model.h5')
-intents = json.loads(open('navigation.json').read())
-words = pickle.load(open('texts.pkl','rb'))
-classes = pickle.load(open('labels.pkl','rb'))
 
+def load_chatbot_data():
+    model = load_model('chatbot_model.h5')
+    intents = json.loads(open('navigation.json').read())
+    words = pickle.load(open('texts.pkl','rb'))
+    classes = pickle.load(open('labels.pkl','rb'))
+    return model, intents, words, classes
+
+
+model, intents, words, classes = load_chatbot_data()
 
 
 def clean_up_sentence(sentence):
@@ -234,7 +239,7 @@ def execute():
     
     # Get the output of the script
     output = result.stdout
-
+    model, intents, words, classes = load_chatbot_data()
     # Render the template with the output
     return render_template('output.html', output=output)
     

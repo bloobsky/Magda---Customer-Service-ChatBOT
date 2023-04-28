@@ -73,7 +73,7 @@ class ChatBot:
         self.model.add(Dropout(0.5))
         self.model.add(Dense(len(self.train_y[0]), activation='softmax'))
         # Compile model. Stochastic gradient descent with Nesterov accelerated gradient gives good results for this model
-        sgd = SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
+        sgd = SGD(learning_rate=0.01, decay=1e-6, momentum=0.9, nesterov=True)
         self.model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
 
     def train_model(self, epochs, batch_size):
@@ -89,11 +89,11 @@ class ChatBot:
         print("ChatBOT Trained perfectly, please refresh the page to confirm.")
 
 
-if __name__ == "__main__":
-    chatbot = ChatBot()
-    chatbot.load_data('navigation.json')
-    chatbot.create_training_data()
-    chatbot.create_model()
-    chatbot.train_model(200, 5)
-    chatbot.save_model('chatbot_model.h5')
-    chatbot.print_positive()
+
+chatbot = ChatBot()
+chatbot.load_data('navigation.json')
+chatbot.create_training_data()
+chatbot.create_model()
+chatbot.train_model(200, 5)
+chatbot.save_model('chatbot_model.h5')
+#chatbot.print_positive()

@@ -207,6 +207,19 @@
             "Test008"
          ],
          "id": 426269984178139671
+      },
+      {
+         "tag": "xxx",
+         "patterns": [
+            "xxx"
+         ],
+         "responses": [
+            "yyy"
+         ],
+         "context": [
+            "blanke"
+         ],
+         "id": 197290882300420723
       }
    ]
 }

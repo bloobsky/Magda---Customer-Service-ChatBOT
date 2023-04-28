@@ -34,12 +34,13 @@
         </div>
     </nav>
     <div class="container">
-        <h1 align="center">Execute Script</h1>
+        <h3 align="center">In order to train a chatbot with new intents click on train button.</h3>
+        <h4 align="center">Please do not refresh the page and wait for confirmation.</h4>
         <div id="loading" style="display:none;" align="center">
             <img src="{{ url_for('static', filename='loading.gif') }}" alt="Loading...">
         </div>
         <form id="execute-form" action="/execute" align="center">
-            <input type="submit" value="Run Script" class="btn btn-primary" align="center">
+            <input type="submit" value="Train Chatbot" class="btn btn-primary" align="center">
         </form>
         <br />
     </div>
