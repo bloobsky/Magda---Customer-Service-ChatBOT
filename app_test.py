@@ -1,10 +1,8 @@
-
-from flask import session, url_for
-
 from app import app
 
 import unittest
 import pytest
+
 
 class TestApp(unittest.TestCase):
 
@@ -31,24 +29,21 @@ class TestApp(unittest.TestCase):
         self.assertIn(b"Not Found", response.data)
 
 
-
 if __name__ == '__main__':
     # Unit Testing (Works only when Flask is running)
     unittest.main()
 
-    #Pytest can be run offlinec
+    # Pytest can be run offlinec
     @pytest.fixture(scope='module')
     def test_client():
         app.config['TESTING'] = True
         with app.test_client() as client:
             yield client
 
-
     def test_login_page(test_client):
         response = test_client.get('/login')
         assert response.status_code == 200
         assert b"Login" in response.data
-
 
     def test_login_failure(test_client):
         response = test_client.post('/login', data=dict(
@@ -57,7 +52,6 @@ if __name__ == '__main__':
         ), follow_redirects=True)
         assert response.status_code == 200
         assert b"Invalid username or password." in response.data
-
 
     def test_invalid_route(test_client):
         response = test_client.get('/invalid_route')
