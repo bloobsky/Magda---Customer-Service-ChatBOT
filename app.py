@@ -223,7 +223,7 @@ def delete():
         return redirect(url_for('admin'))
 
 # List View
-@app.route('/admin')
+@app.route('/admin/')
 def admin():
     return render_template("admin.html", intents=database.getAll())
 

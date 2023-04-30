@@ -4,6 +4,7 @@ from flask import session, url_for
 from app import app
 
 import unittest
+import pytest
 
 class TestApp(unittest.TestCase):
 

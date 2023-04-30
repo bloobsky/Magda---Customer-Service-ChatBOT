@@ -18,6 +18,7 @@ class DatabaseOperator():
     
     def get_by_id(self):
         pass
+
     def get_all(self):
         return self.db.getAll()
 
