@@ -110,7 +110,7 @@ class ChatBot:
         # Save the model
         self.model.save(filename, self.hist)
 
-    def print_positive():
+    def print_positive(self):
         # Printing Test Result as Positive
         print("ChatBOT Trained perfectly, please refresh the page to confirm.")
 
