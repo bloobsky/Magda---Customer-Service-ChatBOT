@@ -3,7 +3,6 @@ from pysondb import db
 
 class DatabaseOperator():
 
-
     def __init__(self, user):
         if(user == 'user'):
             self.db = db.getDb('database.json')
