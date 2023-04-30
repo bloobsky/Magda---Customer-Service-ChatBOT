@@ -22,11 +22,11 @@ jobs:
 
     - name: Run app tests
       run: |
-        python -m unittest discover -s tests -p app_test.py
+        python -m unittest discover -p app_test.py
 
     - name: Run chatbot tests
       run: |
-        python -m unittest discover -s tests -p chatbot_test.py
+        python -m unittest discover -p chatbot_test.py
 
     - name: Lint code
       run: |
