@@ -102,7 +102,7 @@ def check_order_status():
 
 def tracking_parcels():
     result = db_operator.get()
-    return f"""Your parcel is {result['Delivery']}, and carrier is 
+    return f"""Your parcel is {result['Delivery']}, and carrier is
     {result['Carrier']}, and tracking number is {result['TrackingNumber']}."""
 
 
@@ -155,7 +155,7 @@ def home():
         return redirect(url_for("login"))
 
 
-# Reset password page   
+# Reset password page
 @app.route("/pass_reset")
 def pass_reset():
     session.pop("username", None)
@@ -258,7 +258,7 @@ def train():
 @app.route('/execute')
 def execute():
     result = subprocess.run(['python', 'chatbot.py'],
-                            capture_output=True, text=True)  
+                            capture_output=True, text=True)
     # Get the output of the script
     output = result.stdout
     model, intents, words, classes = load_chatbot_data()
