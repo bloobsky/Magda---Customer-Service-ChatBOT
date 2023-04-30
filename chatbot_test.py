@@ -1,6 +1,9 @@
 import unittest
 import os.path
+import nltk
 from chatbot import ChatBot
+
+nltk.download('punkt')
 
 
 class TestChatBot(unittest.TestCase):

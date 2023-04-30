@@ -104,7 +104,7 @@ class ChatBot:
                                    verbose=1)
 
     def save_model(self, filename):
-        # Save the model 
+        # Save the model
         self.model.save(filename, self.hist)
 
     def print_positive():
