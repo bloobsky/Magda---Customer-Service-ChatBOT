@@ -93,7 +93,6 @@ class ChatBot:
         print("ChatBOT Trained perfectly, please refresh the page to confirm.")
 
 
-
 chatbot = ChatBot()
 chatbot.load_data('navigation.json')
 chatbot.create_training_data()
