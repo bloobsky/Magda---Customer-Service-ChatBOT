@@ -9,6 +9,7 @@ from keras.optimizers import SGD
 from nltk.stem import WordNetLemmatizer
 
 nltk.download('punkt')
+nltk.download('wordnet')
 
 class ChatBot:
     def __init__(self):
