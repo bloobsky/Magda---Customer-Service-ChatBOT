@@ -41,6 +41,11 @@ jobs:
         run: |
           mypy --ignore-missing-imports .
 
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Deploy to Azure VM
         uses: appleboy/ssh-action@master
         with:
