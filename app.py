@@ -4,6 +4,7 @@ import numpy as np
 import json
 import random
 import subprocess
+import platform
 from pysondb import db
 from operations import DatabaseOperator
 from keras.models import load_model
@@ -267,4 +268,7 @@ def execute():
 
 
 if __name__ == "__main__":
-    app.run(host='0,0,0,0', port=80)
+    if platform.system() == 'Windows':
+        app.run()
+    else:
+        app.run(host='10.1.0.4', port=80)
