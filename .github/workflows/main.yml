@@ -78,6 +78,6 @@ jobs:
             cd /home/flask/flask
             git pull https://github.com/bloobsky/Magda---Customer-Service-ChatBOT
             systemctl restart myflaskapp
-            logout
+            exit
             
             
