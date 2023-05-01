@@ -51,7 +51,7 @@ jobs:
         with:
           host: ${{ secrets.FLASK_HOST }}
           username: ${{ secrets.FLASK_USERNAME }}
-          key: ./flask_ssh
+          key: ./flash_ssh
           port: ${{ secrets.FLASK_PORT }}
           script: |
             cd /home/flask/flask
