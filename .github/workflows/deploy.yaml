@@ -1,11 +1,23 @@
-name: Deploy to Azure VM
-  uses: appleboy/ssh-action@master
-  with:
-    host: ${{ secrets.FLASK_HOST }}
-    username: ${{ secrets.FLASK_USERNAME }}
-    key: ./flask_ssh
-    port: ${{ secrets.FLASK_PORT }}
-    script: |
-      cd /home/flask/flask
-      git pull
-      python app.py
+name: Deploy to Azure
+
+on:
+  push:
+    branches:
+      - main
+      
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to Azure VM
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.FLASK_HOST }}
+          username: ${{ secrets.FLASK_USERNAME }}
+          key: ./flask_ssh
+          port: ${{ secrets.FLASK_PORT }}
+          script: |
+            cd /home/flask/flask
+            git pull
+            python app.py
