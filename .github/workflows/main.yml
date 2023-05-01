@@ -72,6 +72,7 @@ jobs:
           host: ${{ secrets.FLASK_HOST }}
           username: ${{ secrets.FLASK_USERNAME }}
           port: ${{ secrets.FLASK_PORT }}
+          password: ${{ secrets.FLASK_PASSWORD }}
           script: |
             cd /home/flask/flask
             git pull
