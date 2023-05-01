@@ -1,40 +1,54 @@
 name: CI/CD Pipeline
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-      with:
-        node-version: 16.x
+      - uses: actions/checkout@v2
+        with:
+          node-version: 16.x
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.x
-        node-version: 16.x
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+          node-version: 16.x
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-    - name: Run app tests
-      run: |
-        python -m unittest discover -p app_test.py
+      - name: Run app tests
+        run: |
+          python -m unittest discover -p app_test.py
 
-    - name: Run chatbot tests
-      run: |
-        python -m unittest discover -p chatbot_test.py
+      - name: Run chatbot tests
+        run: |
+          python -m unittest discover -p chatbot_test.py
 
-    - name: Lint code
-      run: |
-        flake8
+      - name: Lint code
+        run: |
+          flake8
 
-    - name: Type check
-      run: |
-        mypy --ignore-missing-imports .
+      - name: Type check
+        run: |
+          mypy --ignore-missing-imports .
+
+      - name: Deploy to Azure VM
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.FLASK_HOST }}
+          username: ${{ secrets.FLASK_USERNAME }}
+          key: ./flask_ssh
+          port: ${{ secrets.FLASK_PORT }}
+          script: |
+            cd /home/flask/flask
+            git pull
+            python app.py
