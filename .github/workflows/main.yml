@@ -75,7 +75,7 @@ jobs:
           port: ${{ secrets.FLASK_PORT }}
           password: ${{ secrets.FLASK_PASSWORD }}
           script: |
-            cd /home/flask/
+            cd /home/flask/flask
             git pull
             echo ${{ secrets.FLASK_PASSWORD }} | sudo -S python3 app.py
             
