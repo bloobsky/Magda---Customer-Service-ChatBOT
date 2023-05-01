@@ -76,6 +76,6 @@ jobs:
           password: ${{ secrets.FLASK_PASSWORD }}
           script: |
             cd /home/flask/flask
-            git pull
+            git pull https://github.com/bloobsky/Magda---Customer-Service-ChatBOT
             echo ${{ secrets.FLASK_PASSWORD }} | sudo -S python3 app.py
             
