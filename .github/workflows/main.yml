@@ -44,15 +44,6 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    # Trigger the deploy job on push to the main branch
-    # or when a new tag is created
-    # Add the "tag" key in the "types" field
-    # if you want to deploy on new tag creation
-    # Uncomment the following lines to enable the trigger on tag creation
-    # if: startsWith(github.ref, 'refs/tags/')
-    # types: [created]
-
-    if: github.ref == 'refs/heads/main'
 
     steps:
       - name: Deploy to Azure VM
