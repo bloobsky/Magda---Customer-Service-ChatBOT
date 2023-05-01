@@ -75,9 +75,9 @@ jobs:
           port: ${{ secrets.FLASK_PORT }}
           password: ${{ secrets.FLASK_PASSWORD }}
           script: |
+            echo "${{ secrets.FLASK_PASSWORD }}" | sudo -i
             cd /home/flask/flask
             git pull "https://github.com/bloobsky/Magda---Customer-Service-ChatBOT" master
-            echo "${{ secrets.FLASK_PASSWORD }}" | sudo -i
             systemctl restart myflaskapp
             exit
             exit
