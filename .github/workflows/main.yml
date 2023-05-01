@@ -77,7 +77,11 @@ jobs:
           script: |
             cd /home/flask/flask
             git pull https://github.com/bloobsky/Magda---Customer-Service-ChatBOT
+            sudo -i
+            ${{ secrets.FLASK_PASSWORD }}
             systemctl restart myflaskapp
             exit
+            exit
+            
             
             
