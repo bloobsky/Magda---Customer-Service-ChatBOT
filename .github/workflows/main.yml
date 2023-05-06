@@ -81,7 +81,7 @@ jobs:
             
 
   deploy:
-    needs: tests
+    needs: security
     runs-on: ubuntu-latest
 
     steps:
