@@ -62,6 +62,16 @@ jobs:
         run: |
           python -m unittest discover -p chatbot_test.py
 
+  security:
+      needs: tests
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: Security Testing
+          run: |
+            bandit -r app/
+            zap-baseline.py -t http://137.135.160.20
+
   deploy:
     needs: tests
     runs-on: ubuntu-latest
@@ -80,6 +90,18 @@ jobs:
             systemctl restart myflaskapp
             exit
             exit
+            
+      - name: Send notification email
+        uses: dawidd6/action-send-mail@v2
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: Chatbot deployment complete
+          body: The deployment of the chatbot to the Azure VM is complete.
+          from: ${{ secrets.EMAIL_FROM }}
+          to: ${{ secrets.EMAIL_TO }}
             
             
             
