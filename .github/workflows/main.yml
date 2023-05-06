@@ -69,6 +69,8 @@ jobs:
       steps:
         - name: Security Testing
           run: |
+            python -m pip install --upgrade pip
+            pip install bandit
             bandit -r app/
             zap-baseline.py -t http://137.135.160.20
 
