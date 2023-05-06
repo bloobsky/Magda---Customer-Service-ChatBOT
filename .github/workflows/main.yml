@@ -67,12 +67,21 @@ jobs:
       runs-on: ubuntu-latest
 
       steps:
-        - name: Security Testing
-          run: |
+      - name: Security Testing
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.FLASK_HOST }}
+          username: ${{ secrets.FLASK_USERNAME }}
+          port: ${{ secrets.FLASK_PORT }}
+          password: ${{ secrets.FLASK_PASSWORD }}
+          script: |
+            cd /home/flask/flask
             python -m pip install --upgrade pip
             pip install bandit
-            ls -R
-            bandit -r .
+            bandit -r /
+            exit
+            exit
+            
 
   deploy:
     needs: tests
