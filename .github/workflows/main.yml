@@ -19,6 +19,35 @@ jobs:
         with:
           python-version: 3.x
           node-version: 16.x
+      
+      - name: Install flake8 and mypy 
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8
+          pip install mypy
+
+      - name: Lint code
+        run: |
+          flake8
+
+      - name: Type check
+        run: |
+          mypy --ignore-missing-imports .
+
+  tests:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          node-version: 16.x
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+          node-version: 16.x
 
       - name: Install dependencies
         run: |
@@ -33,26 +62,27 @@ jobs:
         run: |
           python -m unittest discover -p chatbot_test.py
 
-      - name: Lint code
-        run: |
-          flake8
+  security:
+      needs: tests
+      runs-on: ubuntu-latest
 
-      - name: Type check
-        run: |
-          mypy --ignore-missing-imports .
+      steps:
+      - name: Security Testing
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.FLASK_HOST }}
+          username: ${{ secrets.FLASK_USERNAME }}
+          port: ${{ secrets.FLASK_PORT }}
+          password: ${{ secrets.FLASK_PASSWORD }}
+          script: |
+            bandit -r /home/flask/flask || true
+            exit
+            exit
+            
 
   deploy:
-    needs: build
+    needs: security
     runs-on: ubuntu-latest
-    # Trigger the deploy job on push to the main branch
-    # or when a new tag is created
-    # Add the "tag" key in the "types" field
-    # if you want to deploy on new tag creation
-    # Uncomment the following lines to enable the trigger on tag creation
-    # if: startsWith(github.ref, 'refs/tags/')
-    # types: [created]
-
-    if: github.ref == 'refs/heads/main'
 
     steps:
       - name: Deploy to Azure VM
@@ -60,9 +90,26 @@ jobs:
         with:
           host: ${{ secrets.FLASK_HOST }}
           username: ${{ secrets.FLASK_USERNAME }}
-          key: ./flask_ssh
           port: ${{ secrets.FLASK_PORT }}
+          password: ${{ secrets.FLASK_PASSWORD }}
           script: |
             cd /home/flask/flask
-            git pull
-            python app.py
+            git pull "https://github.com/bloobsky/Magda---Customer-Service-ChatBOT" master
+            systemctl restart myflaskapp
+            exit
+            exit
+            
+      - name: Send notification email
+        uses: dawidd6/action-send-mail@v2
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: Chatbot deployment complete
+          body: The deployment of the chatbot to the Azure VM is complete.
+          from: ${{ secrets.EMAIL_FROM }}
+          to: ${{ secrets.EMAIL_TO }}
+            
+            
+            
