@@ -12,13 +12,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          node-version: 16.x
+          node-version: 16
 
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: 3.x
-          node-version: 16.x
+          node-version: 16
       
       - name: Install flake8 and mypy 
         run: |
@@ -41,13 +41,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          node-version: 16.x
+          node-version: 16
 
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: 3.x
-          node-version: 16.x
+          node-version: 16
 
       - name: Install dependencies
         run: |
